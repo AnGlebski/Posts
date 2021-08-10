@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import './styles/App.css';
 import PostList from './components/PostList';
@@ -37,6 +37,10 @@ function App() {
     const response = await axios.get('https://jsonplaceholder.typicode.com/posts')
     setPosts(response.data)
   };
+
+  useEffect(() => {
+    fetchPosts()
+  }, []);
 
   return (
     <div className="App">
