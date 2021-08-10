@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import axios from 'axios';
 import './styles/App.css';
 import PostList from './components/PostList';
 import PostForm from './components/PostForm';
@@ -32,8 +33,14 @@ function App() {
     setPosts(posts.filter(item => item.id !== post.id))
   };
 
+  async function fetchPosts() {
+    const response = await axios.get('https://jsonplaceholder.typicode.com/posts')
+    setPosts(response.data)
+  };
+
   return (
     <div className="App">
+      <button onClick={fetchPosts}>get posts</button>
       <MyButton
         style={{marginTop: 30}}
         onClick={() => setModal(true)}>
