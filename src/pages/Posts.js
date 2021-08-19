@@ -11,6 +11,7 @@ import MyButton from '../components/UI/button/MyButton';
 import MyLoader from '../components/UI/loader/MyLoader';
 import Pagination from '../components/UI/pagination/Pagination';
 import {useObserver} from '../hooks/useObserver';
+import MySelect from '../components/UI/select/MySelect';
 
 function Posts() {
   const [posts, setPosts] = useState([]);
@@ -51,7 +52,7 @@ function Posts() {
 
   useEffect(() => {
     fetchPosts(limit, page)
-  }, [page]);
+  }, [page, limit]);
 
   return (
     <div className="App">
@@ -67,6 +68,16 @@ function Posts() {
       <PostFilter
         filter={filter}
         setFilter={setFilter}/>
+      <MySelect
+        value={limit}
+        onChange={value => setLimit(value)}
+        defaultValue="Кол-во элементов на страницу"
+        options={[
+          {value: 5, name: '5'},
+          {value: 10, name: '10'},
+          {value: 25, name: '25'},
+          {value: -1, name: 'Показать все'},
+        ]} />
       { postError &&
         <h3>Произошла ошибка ${postError}</h3>
       }
